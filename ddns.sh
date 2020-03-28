@@ -95,6 +95,10 @@ IPv6: $ipv6
 
 EOF
 
+  if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+    echo "All addresses for the host: $(hostname -I)" >> ${mailtemplate}
+  fi
+
   # Let's define the user based on given config before sending the email
   mail_connect="${mail_from}:${mail_pw}"
 
