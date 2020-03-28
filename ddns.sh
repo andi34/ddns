@@ -97,7 +97,7 @@ EOF
   # Let's define the user based on given config before sending the email
   mail_connect="${mail_from}:${mail_pw}"
 
-  curl --url ${mail_url} --ssl-reqd \
+  curl -fsS --url ${mail_url} --ssl-reqd \
     --mail-from ${mail_from} --mail-rcpt ${mail_rcpt} \
     --upload-file ${mailtemplate} --user ${mail_connect} --insecure
 
