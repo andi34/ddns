@@ -9,6 +9,7 @@ Your public IPv4 & IPv6 get stored inside your home-directory for further use.
 ### Troubleshooting
 
 **Error "curl: (67) Login denied.":**
+
 This may be because of your Google account security settings,
 please turn on less secure apps (https://www.google.com/settings/security/lesssecureapps) and try again.
 
