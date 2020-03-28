@@ -5,20 +5,33 @@
 # No-IP IP Detection Service: https://www.noip.com/integrate/ip-detection
 # Request Method: https://www.noip.com/integrate/request
 #
+# curl is used to send email notifications (googlemail account works fine)
+#
 
 v4_file=$HOME/.ddns_v4.addr
 v6_file=$HOME/.ddns_v6.addr
 old_ipv4=''
 old_ipv6=''
 
-# Stop on the first sign of trouble
-set -e
+# Email config
+mail_url="smtps://smtp.gmail.com:465"
+always_send_email="false"	# true or false
+mail_from="YOU@googlemail.com"
+mail_name_from="YOUR NAME"
+mail_rcpt="recipient@example.com"
+mail_name_rcpt="RECIPIENT NAME"
+mail_pw="PASSWORD"
+# You could also store your password inside a file instead:
+# mail_pw=`cat /PATH/TO/PASSWORD/FILE/password.txt`
+mailtemplate="$HOME/mail.txt"
+mail_subject="Your public IP address changed!"
 
 # Check if curl or wget are available
 if [ -e /usr/bin/curl ]; then
   bin="curl -fsS"
 elif [ -e /usr/bin/wget ]; then
   bin="wget -O-"
+  always_send_email="false"
 else
   echo "Neither curl nor wget found! Please install curl or wget."
   sleep 5
@@ -66,12 +79,34 @@ else
 fi
 
 # Exit if IPv4 & IPv6 are unchanged
-if [[ "$old_ipv4" = "$ipv4" && "$old_ipv6" = "$ipv6" ]]; then
-  echo "IPv4 and IPv6 not changed!"
-  sleep 5
-  exit 1
-fi
+if [[ $always_send_email != "true" && "$old_ipv4" = "$ipv4" && "$old_ipv6" = "$ipv6" ]]; then
+  echo "IPv4 and IPv6 not changed! Not sending email!"
+elif [ -e /usr/bin/curl ]; then
+  DATE=$(date)
+  cat > ${mailtemplate} <<EOF
+From: "${mail_name_from}" <${mail_from}>
+To: "${mail_name_rcpt}" <${mail_rcpt}>
+Subject: ${mail_subject}
 
-# TO-DO:
-# If IP changed use "scp" to transfer the new IP to our static-IP-Server,
-# or send changed IP via E-Mail.
+$DATE:
+IPv4: $ipv4
+IPv6: $ipv6
+
+EOF
+
+  # Let's define the user based on given config before sending the email
+  mail_connect="${mail_from}:${mail_pw}"
+
+  curl --url ${mail_url} --ssl-reqd \
+    --mail-from ${mail_from} --mail-rcpt ${mail_rcpt} \
+    --upload-file ${mailtemplate} --user ${mail_connect} --insecure
+
+  if [ $? -ne 0 ]; then
+    echo "Something went wrong!"
+  else
+    echo "Mail send!"
+  fi
+else
+  echo "curl not found! Please install curl to send emails."
+fi
+sleep 5
