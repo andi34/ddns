@@ -90,13 +90,15 @@ Subject: ${mail_subject}
 
 $DATE:
 Hostname: $HOSTNAME
+
 IPv4: $ipv4
 IPv6: $ipv6
 
 EOF
 
   if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-    echo "All addresses for the host: $(hostname -I)" >> ${mailtemplate}
+    echo "All addresses for the host:" >> ${mailtemplate}
+    echo "$(hostname -I)" >> ${mailtemplate}
   fi
 
   # Let's define the user based on given config before sending the email
