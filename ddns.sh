@@ -89,6 +89,7 @@ To: "${mail_name_rcpt}" <${mail_rcpt}>
 Subject: ${mail_subject}
 
 $DATE:
+Hostname: $HOSTNAME
 IPv4: $ipv4
 IPv6: $ipv6
 
