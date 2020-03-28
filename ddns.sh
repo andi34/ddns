@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # Use OpenSource Public IP Address API from https://www.ipify.org
 #
