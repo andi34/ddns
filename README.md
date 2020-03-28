@@ -38,5 +38,6 @@ If IP changed use "scp" to transfer the new IP to our static-IP-Server.
 
 ### :tada: Donation
 
-If you like my work and like to keep me motivated you can buy me a coconut water
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/andreasblaesius)
+If you like my work and like to keep me motivated you can buy me a coconut water:
+
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/andreasblaesius)
