@@ -6,6 +6,23 @@ Your public IPv4 & IPv6 get stored inside your home-directory for further use.
 `curl` is used to send email notifications.
 
 
+### Requirements
+
+- Internet connection
+- `curl` or `wget` (NOTE: email notification only works using `curl`)
+
+
+### Usage
+
+Make the script executable:
+
+`chmod +x ddns.sh`
+
+Run the script:
+
+`bash ddns.sh`
+
+
 ### Troubleshooting
 
 **Error "curl: (67) Login denied.":**
