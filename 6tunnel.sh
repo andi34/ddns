@@ -27,7 +27,7 @@ fi
 [ -e $known_ip_file ] && old_ip=`cat $known_ip_file`
 
 if [ "$new_ip" = "$old_ip" ]; then
-  echo "IPv6 address unchanged"
+  echo "IP address unchanged"
   sleep 5
   exit 1
 else
