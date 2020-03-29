@@ -27,6 +27,8 @@ mailtemplate="/etc/ddns/mail.txt"
 mail_subject="Your public IP address changed!"
 
 # Transfer IP files via scp
+scp_id_rsa="false"	# true or false
+scp_id_rsa_path="/home/USER/.ssh/id_rsa"
 static_server="root@server"
 transfer_ipv4="false"	# true or false
 destination_v4_file="${v4_file}"
@@ -124,12 +126,18 @@ else
   echo "curl not found! Please install curl to send emails."
 fi
 
+if [ $scp_id_rsa = "true" ]; then
+  scpcmd="scp -q -i ${scp_id_rsa_path}"
+else
+  scpcmd="scp -oBatchMode=yes -q"
+fi
+
 if [ $transfer_ipv4 = "true" ]; then
-  scp -oBatchMode=yes -q ${v4_file} ${static_server}:${destination_v4_file} && echo "${v4_file} transfered to static server" || echo echo "Something went wrong! Could not transfer ${v4_file} to static server."
+  $scpcmd ${v4_file} ${static_server}:${destination_v4_file} && echo "${v4_file} transfered to static server" || echo echo "Something went wrong! Could not transfer ${v4_file} to static server."
 fi
 
 if [ $transfer_ipv6 = "true" ]; then
-  scp -oBatchMode=yes -q ${v6_file} ${static_server}:${destination_v6_file} && echo "${v4_file} transfered to static server" || echo echo "Something went wrong! Could not transfer ${v6_file} to static server."
+  $scpcmd ${v6_file} ${static_server}:${destination_v6_file} && echo "${v4_file} transfered to static server" || echo echo "Something went wrong! Could not transfer ${v6_file} to static server."
 fi
 
 sleep 5
