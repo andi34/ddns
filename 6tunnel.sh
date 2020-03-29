@@ -4,8 +4,8 @@
 #
 
 # Configuration
-new_ip_file=$HOME/.ddns_v6.addr
-known_ip_file=$HOME/.known_ddns_v6.addr
+new_ip_file=/etc/ddns/.ddns_v6.addr
+known_ip_file=/etc/ddns/.known_ddns_v6.addr
 old_ip=""
 
 PORTS=(

@@ -8,8 +8,8 @@
 # curl is used to send email notifications (googlemail account works fine)
 #
 
-v4_file=$HOME/.ddns_v4.addr
-v6_file=$HOME/.ddns_v6.addr
+v4_file=/etc/ddns/.ddns_v4.addr
+v6_file=/etc/ddns/.ddns_v6.addr
 old_ipv4=''
 old_ipv6=''
 
@@ -23,7 +23,7 @@ mail_name_rcpt="RECIPIENT NAME"
 mail_pw="PASSWORD"
 # You could also store your password inside a file instead:
 # mail_pw=`cat /PATH/TO/PASSWORD/FILE/password.txt`
-mailtemplate="$HOME/mail.txt"
+mailtemplate="/etc/ddns/mail.txt"
 mail_subject="Your public IP address changed!"
 
 # Check if curl or wget are available

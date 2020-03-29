@@ -1,7 +1,7 @@
 # Get public IPv4 and public IPv6 address
 
 Get public IPv4 & IPv6 via `curl` or `wget` using the OpenSource Public IP Address API from [https://www.ipify.org](https://www.ipify.org).
-Your public IPv4 & IPv6 get stored inside your home-directory for further use.
+Your public IPv4 & IPv6 get stored for further use.
 
 `curl` is used to send email notifications.
 
@@ -14,21 +14,70 @@ Your public IPv4 & IPv6 get stored inside your home-directory for further use.
 
 ### :wrench: Usage
 
-Make the script executable:
+#### Run the script manually
 
-`chmod +x ddns.sh`
+1. Download the `ddns.sh` script:
 
-Run the script:
+  `wget https://raw.githubusercontent.com/andi34/ddns/master/ddns.sh`
 
-`bash ddns.sh`
+2. Make the script executable:
+
+  `chmod +x ddns.sh`
+
+3. Create /etc/ddns folder to store your IP address
+
+  ```
+  sudo -i
+  mkdir -p /etc/ddns
+  ```
+
+4. Change the config depending on your needs using your favourite text editor:
+
+  `nano ddns.sh`
+
+
+5. Run the script:
+
+  `bash ddns.sh`
+
+
+#### Setup cron job
+
+1. Login as "root"
+
+  `sudo -i`
+
+2. Create /etc/ddns folder to store your IP address
+
+  ```
+  sudo -i
+  mkdir -p /etc/ddns
+  ```
+
+3. Add a hourly cron job:
+
+  ```
+  cd /etc/cron.hourly
+  wget https://raw.githubusercontent.com/andi34/ddns/master/etc/cron.hourly/ddns
+  chmod 755 ddns
+  cd /usr/local/bin
+  wget https://raw.githubusercontent.com/andi34/ddns/master/ddns.sh
+  mv ddns.sh ddns
+  chmod 755 ddns
+  ```
+
+
+4. Change the config inside `/usr/local/bin/ddns` depending on your needs using your favourite text editor:
+
+  `nano /usr/local/bin/ddns`
 
 
 ### :question: Troubleshooting
 
-**Error "curl: (67) Login denied.":**
+- **Error "curl: (67) Login denied.":**
 
-This may be because of your Google account security settings,
-please turn on less secure apps (https://www.google.com/settings/security/lesssecureapps) and try again.
+  This may be because of your Google account security settings,
+  please turn on less secure apps (https://www.google.com/settings/security/lesssecureapps) and try again.
 
 
 ### :grey_question: TO-DO
