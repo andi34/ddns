@@ -26,6 +26,13 @@ mail_pw="PASSWORD"
 mailtemplate="/etc/ddns/mail.txt"
 mail_subject="Your public IP address changed!"
 
+# Transfer IP files via scp
+static_server="root@server"
+transfer_ipv4="false"	# true or false
+destination_v4_file="${v4_file}"
+transfer_ipv6="false"	# true or false
+destination_v6_file="${v6_file}"
+
 # Check if curl or wget are available
 if [ -e /usr/bin/curl ]; then
   bin="curl -fsS"
@@ -116,4 +123,13 @@ EOF
 else
   echo "curl not found! Please install curl to send emails."
 fi
+
+if [ $transfer_ipv4 = "true" ]; then
+  scp -oBatchMode=yes -q ${v4_file} ${static_server}:${destination_v4_file} && echo "${v4_file} transfered to static server" || echo echo "Something went wrong! Could not transfer ${v4_file} to static server."
+fi
+
+if [ $transfer_ipv6 = "true" ]; then
+  scp -oBatchMode=yes -q ${v6_file} ${static_server}:${destination_v6_file} && echo "${v4_file} transfered to static server" || echo echo "Something went wrong! Could not transfer ${v6_file} to static server."
+fi
+
 sleep 5

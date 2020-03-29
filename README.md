@@ -14,6 +14,18 @@ Your public IPv4 & IPv6 get stored for further use.
 
 ### :wrench: Usage
 
+#### Prerequisites
+
+To use `scp` to transfer your IP address files to your *Static-IP-Server* you first need to add your public ssh key
+to your *Static-IP-Servers* authorized ssh keys:
+
+`cat ~/.ssh/id_rsa.pub | ssh root@sever 'cat >> .ssh/authorized_keys'`
+
+Confirm by entering your password.
+
+You should now be able to ssh into your Static-IP-Server without entering the password.
+
+
 #### Run the script manually
 
 1. Download the `ddns.sh` script:
@@ -80,10 +92,14 @@ Your public IPv4 & IPv6 get stored for further use.
   This may be because of your Google account security settings,
   please turn on less secure apps (https://www.google.com/settings/security/lesssecureapps) and try again.
 
+- **How can i create a public and private key pair so i can use `ssh` and `scp` without using a password?**
+
+  Use `ssh-keygen` to create your key pair, for example you can use `ssh-keygen -t rsa -b 4096 -C "root@localhost"`.
+
 
 ### :grey_question: TO-DO
 
-If IP changed use "scp" to transfer the new IP to our static-IP-Server.
+- ?
 
 
 ### :tada: Donation
