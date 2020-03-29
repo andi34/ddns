@@ -29,6 +29,7 @@ Your public IPv4 & IPv6 get stored for further use.
   ```
   sudo -i
   mkdir -p /etc/ddns
+  chmod 711 /etc/ddns
   ```
 
 4. Change the config depending on your needs using your favourite text editor:
@@ -50,8 +51,8 @@ Your public IPv4 & IPv6 get stored for further use.
 2. Create /etc/ddns folder to store your IP address
 
   ```
-  sudo -i
   mkdir -p /etc/ddns
+  chmod 711 /etc/ddns
   ```
 
 3. Add a hourly cron job:
